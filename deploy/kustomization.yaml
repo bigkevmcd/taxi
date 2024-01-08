@@ -2,9 +2,13 @@ resources:
 - deployment.yaml
 - service.yaml
 configMapGenerator:
-- name: www-files
-  files:
+- files:
   - index.html
-commonLabels:
-  app.kubernetes.io/part-of: taxi
-  app.kubernetes.io/name: taxi
+  name: www-files
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+labels:
+- includeSelectors: true
+  pairs:
+    app.kubernetes.io/name: taxi
+    app.kubernetes.io/part-of: taxi
